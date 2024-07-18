@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./todo-backend
+      dockerfile: Dockerfile
+    container_name: todo-backend
+    ports:
+      - "8000:${PORT_BACKEND}"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    command: ["npm", "start"]
+
+  frontend:
+    build:
+      context: ./todo-frontend
+      dockerfile: Dockerfile
+    container_name: todo-frontend
+    ports:
+      - "3000:${PORT_FRONTEND}"
+    depends_on:
+      - backend
+    command: ["npm", "start"]
+
+volumes:
+  mongo-data:

@@ -1,70 +1,59 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Todo List Application
 
-## Available Scripts
+This project is a technical test implementation of a Todo List application. It includes a frontend built with React and a backend built with Express, using Redux Toolkit for state management and MongoDB for data persistence. The application is containerized using Docker Compose.
 
-In the project directory, you can run:
+## Prerequisites
 
-### `npm start`
+- Docker and Docker Compose installed on your machine.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository:
 
-### `npm test`
+    ```bash
+    git clone https://github.com/0grre/ikomobi-test-technique-jbloup.git
+    cd ikomobi-test-technique-jbloup
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Copy the example environment file to `.env`:
 
-### `npm run build`
+    ```bash
+    cp todo-backend/.env.example todo-backend/.env
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Open `todo-backend/.env` in a text editor and set your JWT secret:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```env
+    MONGO_URI=mongodb://mongo:27017/tododb
+    JWT_SECRET=your_generated_jwt_secret
+    PORT=5000
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Replace `your_generated_jwt_secret` with your own secret key.
 
-### `npm run eject`
+4. You can also change the ports if necessary by modifying the `PORT` in the `.env` file and the ports in the `docker-compose.yml` file.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Running the application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. In the project root directory, start the application with Docker Compose:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    docker-compose up -d
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    The `-d` flag runs the containers in detached mode.
 
-## Learn More
+2. The React frontend will be available at `http://localhost:3000`, and the Express backend API will be available at `http://localhost:5000`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Stopping the application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To stop the application, run:
 
-### Code Splitting
+```bash
+docker-compose down
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
