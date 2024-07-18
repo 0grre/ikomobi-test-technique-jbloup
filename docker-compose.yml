@@ -18,9 +18,8 @@ services:
       - "8000:${PORT_BACKEND}"
     depends_on:
       - mongo
-    environment:
-      - MONGO_URI=${MONGO_URI}
-      - JWT_SECRET=${JWT_SECRET}
+    env_file:
+      - ./.env
     command: ["npm", "start"]
 
   frontend:
@@ -32,6 +31,8 @@ services:
       - "3000:${PORT_FRONTEND}"
     depends_on:
       - backend
+    env_file:
+      - ./.env
     command: ["npm", "start"]
 
 volumes:
