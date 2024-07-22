@@ -1,7 +1,7 @@
 # Todo List Application
 
 This project is a technical test implementation of a Todo List application. It includes a frontend built with React and
-a backend built with Express, using Redux Toolkit for state management and MongoDB for data persistence. The application
+a backend built with Express, using Redux Toolkit for state management and MySQL for data persistence. The application
 is containerized using Docker Compose.
 
 ## Prerequisites
