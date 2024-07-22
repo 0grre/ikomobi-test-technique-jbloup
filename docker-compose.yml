@@ -1,13 +1,18 @@
-version: '3.8'
-
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
+  mariadb:
+    image: mariadb:10.7.3
+    command: mysqld --default-authentication-plugin=mysql_native_password --sql_mode=""
+    container_name: todo-database
     ports:
-      - "27017:27017"
+      - "${DB_PORT}:3306"
     volumes:
-      - mongo-data:/data/db
+      - mariadb-data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+    restart: always
 
   backend:
     build:
@@ -17,10 +22,13 @@ services:
     ports:
       - "8000:${PORT_BACKEND}"
     depends_on:
-      - mongo
+      - mariadb
     env_file:
       - ./.env
-    command: ["npm", "start"]
+    command: bash -c "
+      sh ./start.sh
+      && npm start
+      "
 
   frontend:
     build:
@@ -36,4 +44,4 @@ services:
     command: ["npm", "start"]
 
 volumes:
-  mongo-data:
+  mariadb-data:
