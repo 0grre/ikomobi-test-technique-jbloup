@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../../.env' });
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -9,21 +9,15 @@ const { User } = require('../../models');
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  console.log('Login request received with email:', email);
-
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      console.log('User not found');
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'Invalid credentials 2'});
     }
-
-    console.log('User found:', user);
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log('Password does not match');
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'Invalid credentials 3'});
     }
 
     const payload = {
@@ -31,8 +25,6 @@ router.post('/login', async (req, res) => {
         id: user.id
       }
     };
-
-    console.log('Creating JWT token with payload:', payload);
 
     jwt.sign(
         payload,
@@ -45,7 +37,7 @@ router.post('/login', async (req, res) => {
         }
     );
   } catch (err) {
-    console.error('Server error: '+process.env.JWT_SECRET, err.message);
+    console.error('Server error: ', err.message);
     res.status(500).send('Server error');
   }
 });
